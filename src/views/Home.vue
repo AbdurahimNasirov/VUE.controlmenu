@@ -1,18 +1,26 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="category-and-order-block">
+    <router-view />
+    <OrderBar />
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
+import CardList from "../components/Categories/CardsList.vue";
+import OrderBar from "../components/OrderBar/index.vue";
 export default {
-  name: 'Home',
+  name: "Home",
   components: {
-    HelloWorld
-  }
-}
+    CardList,
+    OrderBar,
+  },
+};
 </script>
+<style lang="scss" scoped>
+.category-and-order-block {
+  width: 65%;
+  margin-left: 130px;
+  display: flex;
+  justify-content: space-between;
+}
+</style>
