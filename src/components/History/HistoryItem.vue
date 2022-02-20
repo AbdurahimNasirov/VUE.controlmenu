@@ -5,7 +5,7 @@
     <p class="history__list__order-time">
       at: <span>{{ order.time }}</span>
     </p>
-    <span class="history__list__order-prize">{{ order.totalPrice }}</span>
+    <span class="history__list__order-price">{{ order.totalPrice }}</span>
     <span class="history__list__payment">
       <ion-icon name="checkmark-done-outline"></ion-icon>
     </span>
@@ -87,7 +87,7 @@ export default {
       font-size: 21px;
     }
   }
-  &__order-prize {
+  &__order-price {
     width: 352px;
     font-family: "Readex Pro";
     font-weight: 600;

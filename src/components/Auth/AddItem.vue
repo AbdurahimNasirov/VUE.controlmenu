@@ -15,7 +15,7 @@
           v-model="titleItemProduct"
           autocomplete="off"
         />
-        <label for="prize-product" class="name--global">Prize Product :</label>
+        <label for="price-product" class="name--global">price Product :</label>
         <input
           type="number"
           class="input--global"

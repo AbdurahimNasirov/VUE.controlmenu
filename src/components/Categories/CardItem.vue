@@ -1,16 +1,17 @@
 <template>
   <div class="btn--global">
     <div @click="linkToProduct" class="cardItem">
+      <!-- это должен быть router-link -->
       <h2 class="btn--global-link">{{ category.title }}</h2>
     </div>
-    <button class="delete-btn--global" @click="deleteCategoryBtn">
+    <button class="delete-btn--global" @click="deleteCategoryRuslan">
       <ion-icon name="trash-outline"></ion-icon>
     </button>
   </div>
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapMutations } from "vuex";
 export default {
   name: "Category",
   props: {
@@ -30,6 +31,15 @@ export default {
         id: this.category.id,
       });
     },
+
+    // Ruslan
+    ...mapMutations({
+      commitDeleteCategoryRuslan: "deleteCategoryRuslan"
+    }),
+
+    deleteCategoryRuslan () {
+      this.commitDeleteCategoryRuslan(this.category)
+    }
   },
 };
 </script>

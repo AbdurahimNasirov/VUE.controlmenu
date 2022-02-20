@@ -6,15 +6,15 @@
 </template>
 
 <script>
-import CardList from "../components/Categories/CardsList.vue";
-import OrderBar from "../components/OrderBar/index.vue";
+import CardList from '../components/Categories/CardsList.vue'
+import OrderBar from '../components/OrderBar/index.vue'
 export default {
-  name: "Home",
+  name: 'Home',
   components: {
     CardList,
-    OrderBar,
-  },
-};
+    OrderBar
+  }
+}
 </script>
 <style lang="scss" scoped>
 .category-and-order-block {

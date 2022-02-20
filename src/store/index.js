@@ -4,83 +4,113 @@ import infoProducts from './infoProducts'
 import infoCategories from './infoCategories'
 Vue.use(Vuex)
 
+// пиши не просто s, а лучше state
+
 export default new Vuex.Store({
   state: {
     name: '',
     products: infoProducts,
     categories: infoCategories,
     selectedOrders: {},
+    selectedOrdersRuslan: [],
     totalPrice: 0,
     historyOrders: [],
   },
   mutations: {
-    addName(s, name) {
-      s.name = name
-      console.log(s.name)
+    addName(state, name) {
+      state.name = name
+      console.log(state.name)
     },
-    addSelectedOrder(s, body) {
-      if (!s.selectedOrders[body.name]) this._vm.$set(s.selectedOrders, body.name, [])
-      s.selectedOrders[body.name].push(body)
+    addSelectedOrder(state, body) {
+      if (!state.selectedOrders[body.name]) this._vm.$set(state.selectedOrders, body.name, [])
+      state.selectedOrders[body.name].push(body)
     },
-    removeSelectedItem(s, body) {
-      s.selectedOrders[body.name].pop()
-      if (!s.selectedOrders[body.name].length) {
-        delete s.selectedOrders[body.name]
-        s.totalPrice -= body.price
+    removeSelectedItem(state, body) {
+      state.selectedOrders[body.name].pop()
+      if (!state.selectedOrders[body.name].length) {
+        delete state.selectedOrders[body.name]
+        state.totalPrice -= body.price
       }
     },
-    setCategories(s, { title, categoryName }) {
-      const id = s.categories[s.categories.length - 1].id + 1
+    setCategories(state, { title, categoryName }) {
+      const id = state.categories[state.categories.length - 1].id + 1
       const body = {
         title,
         categoryName,
         id
       }
-      s.categories.push(body)
+      state.categories.push(body)
     },
-    setProducts(s, { name, category, price }) {
-      const id = s.products[s.products.length - 1].id + 1
+    setProducts(state, { name, category, price }) {
+      const id = state.products[state.products.length - 1].id + 1
       const body = {
         name,
         category,
         price: Number(price),
         id: id
       }
-      s.products.push(body)
+      state.products.push(body)
     },
-    deleteProductFromProducts(s, { name, id }) {
-      if (s.selectedOrders[name]) {
-        s.totalPrice -= s.selectedOrders[name].length * s.selectedOrders[name][0].price
-        this._vm.$set(s.selectedOrders, name, [])
-        delete s.selectedOrders[name]
-        s.products = s.products.filter(product => product.id != id)
+    deleteProductFromProducts(state, { name, id }) {
+      if (state.selectedOrders[name]) {
+        state.totalPrice -= state.selectedOrders[name].length * state.selectedOrders[name][0].price
+        this._vm.$set(state.selectedOrders, name, [])
+        delete state.selectedOrders[name]
+        state.products = state.products.filter(product => product.id != id)
       } else {
-        s.products = s.products.filter(product => product.id != id)
+        state.products = state.products.filter(product => product.id != id)
       }
     },
-    deleteCategoriesFromCategories(s, { categoryName, id }) {
-      s.categories = s.categories.filter(category => category.id != id)
-      s.products = s.products.filter(product => product.category != categoryName)
+    deleteCategoriesFromCategories(state, { categoryName, id }) {
+      // не чистишь selectedOrders
+      state.categories = state.categories.filter(category => category.id != id)
+      state.products = state.products.filter(product => product.category != categoryName)
+      
     },
-    plusTotalPrice(s, price) {
-      s.totalPrice += price
+    plusTotalPrice(state, price) {
+      state.totalPrice += price
     },
-    minusTotalPrice(s, price) {
-      s.totalPrice -= price
+    minusTotalPrice(state, price) {
+      state.totalPrice -= price
     },
-    addOrderToHistory(s, { totalPrice, orders, time }) {
-      s.historyOrders.push({
+    addOrderToHistory(state, { totalPrice, orders, time }) {
+      state.historyOrders.push({
         totalPrice,
         orders,
         time
       })
     },
-    clearPriceAndOrders(s) {
-      s.selectedOrders = {}
-      s.totalPrice = 0
+    clearPriceAndOrders(state) {
+      state.selectedOrders = {}
+      state.totalPrice = 0
     },
-    removeHistoryOrder(s, id) {
-      s.historyOrders.splice(id, 1)
+    removeHistoryOrder(state, id) {
+      state.historyOrders.splice(id, 1)
+    },
+
+    // Ruslan
+    deleteCategoryRuslan (state, category) {
+      state.products.forEach(product => {
+        if (product.category === category.categoryName) {
+          deleteProduct(state, product)
+        }
+      });
+
+      state.categories = state.categories.filter(_category => _category.id !== category.id)
+    },
+
+    deleteProductRuslan (state, product) {
+      deleteProduct(state, product)
+    },
+
+    addtProductToOrdersRuslan (state, product) {
+      state.selectedOrdersRuslan.push(product)
+    },
+
+    deleteProductFromOrdersProduct (state, product) {
+      state.selectedOrdersRuslan = state.selectedOrdersRuslan.filter(_product => {
+        return _product.orderProductId !== product.orderProductId
+      })
     }
   },
   actions: {
@@ -127,6 +157,16 @@ export default new Vuex.Store({
     getCategories: s => s.categories,
     getSelectedProducts: s => s.selectedOrders,
     getTotalPrice: s => s.totalPrice,
-    getHistoryInfo: s => s.historyOrders
+    getHistoryInfo: s => s.historyOrders,
+
+    // Ruslan
+    getSelectedOrdersRuslan: state => state.selectedOrdersRuslan
   },
 })
+
+function deleteProduct (state, product) {
+  state.products = state.products.filter(_product => _product.id !== product.id)
+  state.selectedOrdersRuslan = state.selectedOrdersRuslan.filter(_product => {
+    return _product.id !== product.id
+  })
+}

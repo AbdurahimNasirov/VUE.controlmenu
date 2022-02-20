@@ -14,7 +14,10 @@ export default {
   computed: {
     ...mapGetters(["getCategories"]),
     categoryName() {
-      return this.$route.name
+      const title = this.getCategories.find(category => {
+        return category.categoryName === this.$route.params.categoryName
+      })
+      return title ? title.title : this.$route.name
     },
   },
   methods: {

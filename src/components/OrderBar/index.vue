@@ -4,9 +4,9 @@
     <OrderList />
     <div class="total">
       <h2 class="total-price">
-        {{ getTotalPrice }}<span class="currency">sum</span>
+        {{ totalPrice }}<span class="currency">sum</span>
       </h2>
-      <button class="total-puy-btn" @click="orderAddToHistory">Puy</button>
+      <button class="total-pay-btn" @click="orderAddToHistory">Pay</button>
     </div>
   </div>
 </template>
@@ -14,15 +14,35 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import OrderList from "@/components/OrderBar/OrderList";
+
+// между import и export тоже ставь отступы
 export default {
-  computed: {
-    ...mapGetters(["getTotalPrice", "getSelectedProducts"]),
-  },
   components: {
     OrderList,
   },
+
+  // не правильно высчитываешь total price, так не правильно!
+  computed: {
+    ...mapGetters([
+      "getTotalPrice", 
+      "getSelectedProducts",
+      'getSelectedOrdersRuslan'
+    ]),
+
+    totalPrice () {
+      let price = 0
+      if (this.getSelectedOrdersRuslan.length) {
+        this.getSelectedOrdersRuslan.forEach(product => {
+          price += product.price
+        });
+      }
+      return price
+    }
+  },
+
   methods: {
     ...mapActions(["setOrdersToHistory", "updatePriceAndOrders"]),
+
     orderAddToHistory() {
       if (this.getTotalPrice) {
         this.setOrdersToHistory({
@@ -38,6 +58,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+// делай отступы
 .order-bar {
   width: 20%;
   background: rgb(243, 154, 36);
@@ -47,6 +68,7 @@ export default {
   right: 0;
   height: 100vh;
   top: 50px;
+
   &__title {
     font-family: "Readex Pro";
     font-weight: 400;
@@ -54,6 +76,7 @@ export default {
     color: black;
   }
 }
+
 .total {
   padding: 10px 5px;
   width: 100%;
@@ -62,15 +85,18 @@ export default {
   flex-direction: column;
   align-items: center;
   border-top: 4px solid black;
+
   &-price {
     font-family: "Readex Pro";
     font-size: 36px;
+
     .currency {
       font-size: 18px;
       margin-left: 10px;
     }
   }
-  &-puy-btn {
+
+  &-pay-btn {
     font-size: 24px;
     font-family: "Readex Pro";
     padding: 8px 12px;

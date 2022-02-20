@@ -78,7 +78,7 @@ body {
   margin-bottom: 2px;
   flex: 1;
 }
-.order__prize {
+.order__price {
   font-size: 0.7em;
   font-weight: 600;
   width: 60px;
@@ -116,7 +116,7 @@ body {
     font-size: 0.7em;
   }
 }
-.order__basic-prize {
+.order__basic-price {
   font-size: 0.8em;
   width: 65px;
   margin-left: 5px;
