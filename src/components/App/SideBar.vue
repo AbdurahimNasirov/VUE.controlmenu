@@ -3,15 +3,23 @@
     <div class="side-bar-fixed">
       <ul>
         <li class="link">
-          <router-link :to="'/history'" class="link-conect"
-            ><ion-icon name="archive"></ion-icon> History</router-link
+          <router-link 
+            :to="'/history'" 
+            class="link-conect"
           >
+            <ion-icon name="archive" /> 
+            History
+          </router-link>
         </li>
         <li class="link">
-          <router-link :to="'/'" class="link-conect"
-            ><ion-icon name="folder"></ion-icon> Categories</router-link
+          <router-link 
+            :to="'/'" 
+            class="link-conect"
           >
-          <Categories :categories="getCategories"/>
+            <ion-icon name="folder" /> 
+            Categories
+          </router-link>
+          <Categories :categories="getCategories" />
         </li>
       </ul>
     </div>
@@ -19,16 +27,17 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import Categories from "@/components/SideBar/Categories";
+import { mapGetters } from 'vuex'
+import Categories from '@/components/SideBar/Categories'
 export default {
-  computed: {
-    ...mapGetters(["getCategories"]),
-  },
   components: {
-    Categories,
+    Categories
   },
-};
+
+  computed: {
+    ...mapGetters(['getCategories'])
+  }
+}
 </script>
 
 <style lang="scss" scoped>

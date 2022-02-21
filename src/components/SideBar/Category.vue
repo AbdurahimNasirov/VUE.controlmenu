@@ -3,21 +3,22 @@
     <router-link
       class="category-item"
       :to="`/category/${category.categoryName}`"
-      >{{ category.title }}</router-link
     >
+      {{ category.title }}
+    </router-link>
   </li>
 </template>
 
 <script>
 export default {
-  name: "categories-link-item",
+  name: 'CategoriesLinkItem',
   props: {
     category: {
       type: Object,
-      required: true,
-    },
-  },
-};
+      required: true
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

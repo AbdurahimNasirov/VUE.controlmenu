@@ -1,31 +1,36 @@
 <template>
   <div class="order-bar">
-    <h3 class="order-bar__title">Orders</h3>
+    <h3 class="order-bar__title">
+      Orders
+    </h3>
     <OrderList />
     <div class="total">
       <h2 class="total-price">
         {{ totalPrice }}<span class="currency">sum</span>
       </h2>
-      <button class="total-pay-btn" @click="orderAddToHistory">Pay</button>
+      <button class="total-pay-btn" @click="orderAddToHistory">
+        Pay
+      </button>
     </div>
   </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
-import OrderList from "@/components/OrderBar/OrderList";
+import { mapGetters, mapActions } from 'vuex'
+import OrderList from '@/components/OrderBar/OrderList'
 
 // между import и export тоже ставь отступы
 export default {
+  name: 'OrderBar',
   components: {
-    OrderList,
+    OrderList
   },
 
   // не правильно высчитываешь total price, так не правильно!
   computed: {
     ...mapGetters([
-      "getTotalPrice", 
-      "getSelectedProducts",
+      'getTotalPrice', 
+      'getSelectedProducts',
       'getSelectedOrdersRuslan'
     ]),
 
@@ -34,27 +39,27 @@ export default {
       if (this.getSelectedOrdersRuslan.length) {
         this.getSelectedOrdersRuslan.forEach(product => {
           price += product.price
-        });
+        })
       }
       return price
     }
   },
 
   methods: {
-    ...mapActions(["setOrdersToHistory", "updatePriceAndOrders"]),
+    ...mapActions(['setOrdersToHistory', 'updatePriceAndOrders']),
 
-    orderAddToHistory() {
+    orderAddToHistory () {
       if (this.getTotalPrice) {
         this.setOrdersToHistory({
           totalPrice: this.getTotalPrice,
           orders: this.getSelectedProducts,
-          time: new Date().toLocaleTimeString([], { timeStyle: "short" }),
-        });
-        this.updatePriceAndOrders();
+          time: new Date().toLocaleTimeString([], { timeStyle: 'short' })
+        })
+        this.updatePriceAndOrders()
       }
-    },
-  },
-};
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

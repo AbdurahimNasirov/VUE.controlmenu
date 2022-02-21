@@ -1,29 +1,34 @@
 <template>
   <div class="auth-dialog">
-    <h3 class="title--global">Registration</h3>
+    <h3 class="title--global">
+      Registration
+    </h3>
     <label for="name-user" class="name--global">Name user:</label>
-    <input type="text" class="input--global" v-model="name" />
-    <button type="btn" class="submit--global" @click="signIn">Sign in</button>
+    <input v-model="name" type="text" class="input--global">
+    <button type="btn" class="submit--global" @click="signIn">
+      Sign in
+    </button>
   </div>
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions } from 'vuex'
 export default {
+  name: 'LoginPage',
   data: () => ({
-    name: "",
+    name: ''
   }),
   methods: {
-    ...mapActions(["setName"]),
-    signIn() {
+    ...mapActions(['setName']),
+    signIn () {
       this.name = this.name.trim()
       if(this.name) {
         this.setName(this.name)
         this.$router.push('/')
       }
-    },
-  },
-};
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

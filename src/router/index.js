@@ -11,13 +11,13 @@ const routes = [
     children: [{
       path: '',
       name: 'Categories',
-      component: () => import('../components/Categories/CardsList.vue'),
+      component: () => import('../components/Categories/CardsList.vue')
     },
     {
       path: '/category/:categoryName',
       name: 'Products',
       component: () => import('../components/Products/ProductsList.vue')
-    },
+    }
     ]
   },
   {
@@ -31,7 +31,7 @@ const routes = [
     name: 'History',
     meta: { layout: 'Main', auth: true },
     component: () => import('../views/History.vue')
-  },
+  }
 ]
 
 const router = new VueRouter({

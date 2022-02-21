@@ -1,7 +1,11 @@
 <template>
   <div class="cards">
     <ul class="cards-list">
-      <li class="cards-item" v-for="product in products" :key="product.id">
+      <li 
+        v-for="product in products" 
+        :key="product.id"
+        class="cards-item" 
+      >
         <ProductItem :product="product" />
       </li>
       <li class="cards-item">
@@ -12,27 +16,26 @@
 </template>
 
 <script>
-import AddProduct from "@/components/Auth/AddItem.vue";
-import ProductItem from "@/components/Products/ProductsItem.vue";
-import { mapGetters } from "vuex";
+import AddProduct from '@/components/Auth/AddItem.vue'
+import ProductItem from '@/components/Products/ProductsItem.vue'
+import { mapGetters } from 'vuex'
 export default {
-  computed: {
-    ...mapGetters(["getProducts"]),
-    products() {
-      let products = [];
-      products = this.getProducts.filter(
-        (product) => product.category === this.$route.params.categoryName
-      );
-      return products;
-    },
-  },
-  name: "Products",
-
+  name: 'ProductsList',
   components: {
     ProductItem,
-    AddProduct,
+    AddProduct
   },
-};
+  computed: {
+    ...mapGetters(['getProducts']),
+    products () {
+      let products = []
+      products = this.getProducts.filter(
+        (product) => product.category === this.$route.params.categoryName
+      )
+      return products
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

@@ -10,15 +10,19 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import OrderItem from "../../components/OrderBar/OrderItem.vue";
+import { mapGetters } from 'vuex'
+import OrderItem from '../../components/OrderBar/OrderItem.vue'
 export default {
   components: {
-    OrderItem,
+    OrderItem
   },
+  data:() => ({
+    totalPrice: null
+  }),
+
   computed: {
-    ...mapGetters(["getSelectedProducts", 'getSelectedOrdersRuslan']),
-    selectedProducts() {
+    ...mapGetters(['getSelectedProducts', 'getSelectedOrdersRuslan']),
+    selectedProducts () {
       return this.getSelectedProducts
     },
 
@@ -31,20 +35,13 @@ export default {
             this.$set(products, orderedProduct.id, [])
           }
           products[orderedProduct.id].push(orderedProduct)
-        });
+        })
       }
       return products
     }
-  },
-  data:() => ({
-    totalPrice: null
-  }),
+  }
 
-  // если не используешь методы, не вызывай их...
-  mounted() {
-  },
-  methods: {},
-};
+}
 </script>
 
 <style lang="scss" scoped>

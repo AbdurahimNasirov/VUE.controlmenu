@@ -1,28 +1,34 @@
 <template>
   <div class="history__item">
-    <span class="history__list__index">{{index}}</span>
+    <span class="history__list__index">{{ index }}</span>
     <HistoryOrderList :orders="order.orders" />
     <p class="history__list__order-time">
       at: <span>{{ order.time }}</span>
     </p>
     <span class="history__list__order-price">{{ order.totalPrice }}</span>
     <span class="history__list__payment">
-      <ion-icon name="checkmark-done-outline"></ion-icon>
+      <ion-icon name="checkmark-done-outline" />
     </span>
-    <button class="history__list__order-delete-btn" @click="deleteOrder(index - 1)">
-      <ion-icon name="trash-outline"></ion-icon>
+    <button
+      class="history__list__order-delete-btn"
+      @click="deleteOrder(index - 1)"
+    >
+      <ion-icon name="trash-outline" />
     </button>
   </div>
 </template>
 
 <script>
-import {mapActions} from 'vuex'
-import HistoryOrderList from "./Order/OrderList.vue";
+import { mapActions } from 'vuex'
+import HistoryOrderList from './Order/OrderList.vue'
 export default {
+  components: {
+    HistoryOrderList
+  },
   props: {
     order: {
       type: Object,
-      required: true,
+      required: true
     },
     index: {
       type: Number,
@@ -30,15 +36,12 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["deleteorderFromHistory"]),
-    deleteOrder(i) {
+    ...mapActions(['deleteorderFromHistory']),
+    deleteOrder (i) {
       this.deleteorderFromHistory(i)
     }
-  } ,
-  components: {
-    HistoryOrderList,
-  },
-};
+  }
+}
 </script>
 
 <style lang="scss" scoped>

@@ -12,16 +12,16 @@
 </template>
 
 <script>
-import Title from "@/components/App/Title";
-import SideBar from "@/components/App/SideBar";
-import NavBar from "@/components/App/Navbar";
+import Title from '@/components/App/Title'
+import SideBar from '@/components/App/SideBar'
+import NavBar from '@/components/App/Navbar'
 export default {
   components: {
     NavBar,
     SideBar,
-    Title,
-  },
-};
+    Title
+  }
+}
 </script>
 
 <style lang="scss" scoped>

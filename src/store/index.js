@@ -14,25 +14,25 @@ export default new Vuex.Store({
     selectedOrders: {},
     selectedOrdersRuslan: [],
     totalPrice: 0,
-    historyOrders: [],
+    historyOrders: []
   },
   mutations: {
-    addName(state, name) {
+    addName (state, name) {
       state.name = name
       console.log(state.name)
     },
-    addSelectedOrder(state, body) {
+    addSelectedOrder (state, body) {
       if (!state.selectedOrders[body.name]) this._vm.$set(state.selectedOrders, body.name, [])
       state.selectedOrders[body.name].push(body)
     },
-    removeSelectedItem(state, body) {
+    removeSelectedItem (state, body) {
       state.selectedOrders[body.name].pop()
       if (!state.selectedOrders[body.name].length) {
         delete state.selectedOrders[body.name]
         state.totalPrice -= body.price
       }
     },
-    setCategories(state, { title, categoryName }) {
+    setCategories (state, { title, categoryName }) {
       const id = state.categories[state.categories.length - 1].id + 1
       const body = {
         title,
@@ -41,7 +41,7 @@ export default new Vuex.Store({
       }
       state.categories.push(body)
     },
-    setProducts(state, { name, category, price }) {
+    setProducts (state, { name, category, price }) {
       const id = state.products[state.products.length - 1].id + 1
       const body = {
         name,
@@ -51,7 +51,7 @@ export default new Vuex.Store({
       }
       state.products.push(body)
     },
-    deleteProductFromProducts(state, { name, id }) {
+    deleteProductFromProducts (state, { name, id }) {
       if (state.selectedOrders[name]) {
         state.totalPrice -= state.selectedOrders[name].length * state.selectedOrders[name][0].price
         this._vm.$set(state.selectedOrders, name, [])
@@ -61,30 +61,30 @@ export default new Vuex.Store({
         state.products = state.products.filter(product => product.id != id)
       }
     },
-    deleteCategoriesFromCategories(state, { categoryName, id }) {
+    deleteCategoriesFromCategories (state, { categoryName, id }) {
       // не чистишь selectedOrders
       state.categories = state.categories.filter(category => category.id != id)
       state.products = state.products.filter(product => product.category != categoryName)
       
     },
-    plusTotalPrice(state, price) {
+    plusTotalPrice (state, price) {
       state.totalPrice += price
     },
-    minusTotalPrice(state, price) {
+    minusTotalPrice (state, price) {
       state.totalPrice -= price
     },
-    addOrderToHistory(state, { totalPrice, orders, time }) {
+    addOrderToHistory (state, { totalPrice, orders, time }) {
       state.historyOrders.push({
         totalPrice,
         orders,
         time
       })
     },
-    clearPriceAndOrders(state) {
+    clearPriceAndOrders (state) {
       state.selectedOrders = {}
       state.totalPrice = 0
     },
-    removeHistoryOrder(state, id) {
+    removeHistoryOrder (state, id) {
       state.historyOrders.splice(id, 1)
     },
 
@@ -94,7 +94,7 @@ export default new Vuex.Store({
         if (product.category === category.categoryName) {
           deleteProduct(state, product)
         }
-      });
+      })
 
       state.categories = state.categories.filter(_category => _category.id !== category.id)
     },
@@ -114,40 +114,40 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    setName({ commit }, name) {
+    setName ({ commit }, name) {
       commit('addName', name)
     },
-    addtSelectedOrder({ commit }, body) {
+    addtSelectedOrder ({ commit }, body) {
       commit('addSelectedOrder', body)
     },
-    removeSelectedOrderItem({ commit }, body) {
+    removeSelectedOrderItem ({ commit }, body) {
       commit('removeSelectedItem', body)
     },
-    addCategories({ commit }, body) {
+    addCategories ({ commit }, body) {
       commit('setCategories', body)
     },
-    addItem({ commit }, body) {
+    addItem ({ commit }, body) {
       commit('setProducts', body)
     },
-    deleteProduct({ commit }, body) {
+    deleteProduct ({ commit }, body) {
       commit('deleteProductFromProducts', body)
     },
-    deleteCategories({ commit }, body) {
+    deleteCategories ({ commit }, body) {
       commit('deleteCategoriesFromCategories', body)
     },
-    plusPriceToTotalPrice({ commit }, price) {
+    plusPriceToTotalPrice ({ commit }, price) {
       commit('plusTotalPrice', price)
     },
-    minusPriceToTotalPrice({ commit }, price) {
+    minusPriceToTotalPrice ({ commit }, price) {
       commit('minusTotalPrice', price)
     },
-    setOrdersToHistory({ commit }, body) {
+    setOrdersToHistory ({ commit }, body) {
       commit('addOrderToHistory', body)
     },
-    updatePriceAndOrders({ commit }) {
+    updatePriceAndOrders ({ commit }) {
       commit('clearPriceAndOrders')
     },
-    deleteorderFromHistory({ commit }, id) {
+    deleteorderFromHistory ({ commit }, id) {
       commit('removeHistoryOrder', id)
     }
   },
@@ -161,7 +161,7 @@ export default new Vuex.Store({
 
     // Ruslan
     getSelectedOrdersRuslan: state => state.selectedOrdersRuslan
-  },
+  }
 })
 
 function deleteProduct (state, product) {

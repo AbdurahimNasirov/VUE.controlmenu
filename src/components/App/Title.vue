@@ -1,31 +1,34 @@
 <template>
   <div class="title">
     <router-link class="previous--global" :to="'/'">
-      <ion-icon name="home-outline"></ion-icon>
+      <ion-icon name="home-outline" />
     </router-link>
-    <h1>{{categoryName}}</h1>
+    <h1>{{ categoryName }}</h1>
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters } from 'vuex'
 export default {
-  name: "Title",
+  name: 'TitleComponent',
+
   computed: {
-    ...mapGetters(["getCategories"]),
-    categoryName() {
+    ...mapGetters(['getCategories']),
+    
+    categoryName () {
       const title = this.getCategories.find(category => {
         return category.categoryName === this.$route.params.categoryName
       })
       return title ? title.title : this.$route.name
-    },
+    }
   },
+
   methods: {
-    linkToHomePage() {
-      this.$router.push("/");
-    },
-  },
-};
+    linkToHomePage () {
+      this.$router.push('/')
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

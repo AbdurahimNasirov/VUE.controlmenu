@@ -3,58 +3,75 @@
     <button class="history__list__order-btn" @click="dialogShowTrigger">
       Orders
     </button>
-    <ul class="order__list list-order-history" v-show="showOrders">
-      <h3 class="list-order-history__title">Orders:</h3>
+    <ul 
+      v-show="showOrders" 
+      class="order__list list-order-history"
+    >
+      <h3 class="list-order-history__title">
+        Orders: 
+      </h3>
       <button class="exit-order" @click="hide">
-        <ion-icon name="close-outline"></ion-icon>
+        <ion-icon name="close-outline" />
       </button>
-      <OrderItem v-for="(order, name, idx) in orders" :key="idx" :order="order" :index="idx + 1"/>
+      <OrderItem 
+        v-for="(order, name, idx) in orders" 
+        :key="idx" 
+        :order="order" 
+        :index="idx + 1"
+      />
     </ul>
   </div>
 </template>
 
 <script>
-import ClickOutside from "vue-click-outside";
-import OrderItem from "./OrderItem.vue";
+import ClickOutside from 'vue-click-outside'
+import OrderItem from './OrderItem.vue'
 export default {
+  components: {
+    OrderItem
+  },
+
+  directives: {
+    ClickOutside
+  },
+  
   props: {
     orders: {
       type: Object,
-      required: true,
-    },
+      required: true
+    }
   },
+
   data: () => ({
-    showOrders: false,
+    showOrders: false
   }),
+
   watch: {
-    showOrders(e) {
+    showOrders (e) {
       if (e) {
-        window.addEventListener("keydown", this.closeByEsc);
+        window.addEventListener('keydown', this.closeByEsc)
       } else {
-        window.removeEventListener("keydown", this.closeByEsc);
+        window.removeEventListener('keydown', this.closeByEsc)
       }
-    },
+    }
   },
+
   methods: {
-    hide() {
-      this.showOrders = false;
+    hide () {
+      this.showOrders = false
     },
-    closeByEsc() {
-      if (event.code.toLowerCase() === "escape") {
-        this.hide();
+
+    closeByEsc () {
+      if (event.code.toLowerCase() === 'escape') {
+        this.hide()
       }
     },
-    dialogShowTrigger() {
-      this.showOrders = !this.showOrders;
-    },
-  },
-  components: {
-    OrderItem,
-  },
-  directives: {
-    ClickOutside,
-  },
-};
+
+    dialogShowTrigger () {
+      this.showOrders = !this.showOrders
+    }
+  }
+}
 </script>
 <style lang="scss" scoped>
 .list-order-history {

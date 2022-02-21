@@ -6,19 +6,20 @@
   </div>
 </template>
 <script>
-import AuthLayout from "@/layouts/AuthLayout";
-import MainLayout from "@/layouts/MainLayout";
+import AuthLayout from '@/layouts/AuthLayout'
+import MainLayout from '@/layouts/MainLayout'
 export default {
-  computed: {
-    layout() {
-      return `${this.$route.meta.layout || "Main"}Layout`;
-    },
-  },
   components: {
     AuthLayout,
-    MainLayout,
+    MainLayout
   },
-};
+
+  computed: {
+    layout () {
+      return `${this.$route.meta.layout || 'Main'}Layout`
+    }
+  }
+}
 </script>
 
 <style lang="scss">

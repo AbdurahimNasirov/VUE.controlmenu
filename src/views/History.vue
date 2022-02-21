@@ -3,25 +3,27 @@
     <div class="history__control-order">
       <span class="history__number-icon">№</span>
       <h3 class="history__orders-icon">
-        <ion-icon name="create-outline"></ion-icon> Orders:
+        <ion-icon name="create-outline" /> Orders:
       </h3>
       <span class="history__time-icon">
-        <ion-icon name="time-outline"></ion-icon>
+        <ion-icon name="time-outline" />
       </span>
       <span class="history__cost-icon">
-        <ion-icon name="cash-outline"></ion-icon>
+        <ion-icon name="cash-outline" />
       </span>
       <span class="history__payment-icon">
-        <ion-icon name="wallet-outline"></ion-icon>
+        <ion-icon name="wallet-outline" />
       </span>
       <span class="history__delete-icon">
-        <ion-icon name="trash-outline"></ion-icon>
+        <ion-icon name="trash-outline" />
       </span>
     </div>
-    <HistoryTable :ordersList="getHistoryInfo"/>
+    <HistoryTable :orders-list="getHistoryInfo" />
     <div class="history__bottom-content">
       <div class="history__info">
-        <h2 class="paymaster">{{getName}}</h2>
+        <h2 class="paymaster">
+          {{ getName }}
+        </h2>
         <h3 class="all-money">
           all collected money : <span id="all-money">{{ totalPrice }}</span>
         </h3>
@@ -31,21 +33,23 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import HistoryTable from "../components/History/HistoryTable.vue";
+import { mapGetters } from 'vuex'
+import HistoryTable from '../components/History/HistoryTable.vue'
 export default {
-  computed: {
-    ...mapGetters(["getHistoryInfo", "getName"]),
-    totalPrice() {
-      let totalPrice = 0;
-      this.getHistoryInfo.forEach((order) => (totalPrice += order.totalPrice));
-      return totalPrice;
-    },
-  },
+  name: 'HistoryPage',
   components: {
-    HistoryTable,
+    HistoryTable
   },
-};
+  computed: {
+    ...mapGetters(['getHistoryInfo', 'getName']),
+    totalPrice () {
+      let totalPrice = 0
+      this.getHistoryInfo.forEach((order) => (totalPrice += order.totalPrice))
+      return totalPrice
+    }
+  }
+
+}
 </script>
 
 <style lang="scss" scoped>

@@ -6,12 +6,10 @@
 </template>
 
 <script>
-import CardList from '../components/Categories/CardsList.vue'
 import OrderBar from '../components/OrderBar/index.vue'
 export default {
-  name: 'Home',
+  name: 'HomePage',
   components: {
-    CardList,
     OrderBar
   }
 }
