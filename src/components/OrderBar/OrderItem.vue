@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { mapActions, mapMutations } from 'vuex'
+import { mapMutations } from 'vuex'
 export default {
   props: {
     product: {
@@ -49,23 +49,6 @@ export default {
     this.price = this.product[0].price
   },
   methods: {
-    ...mapActions([
-      'addtSelectedOrder',
-      'removeSelectedOrderItem',
-      'plusPriceToTotalPrice',
-      'minusPriceToTotalPrice'
-    ]),
-    plusItem () {
-      this.addtSelectedOrder(this.product[0])
-      this.plusPriceToTotalPrice(this.product[0].price)
-    },
-    minusItem () {
-      this.removeSelectedOrderItem(this.product[0])
-      if (this.product.length)
-        this.minusPriceToTotalPrice(this.product[0].price)
-    },
-
-    // Ruslan
     ...mapMutations(['deleteProductFromOrdersProduct', 'addtProductToOrdersRuslan']),
 
     minusItemRuslan () {

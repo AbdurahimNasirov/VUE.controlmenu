@@ -1,11 +1,11 @@
 <template>
   <div class="history__item">
     <span class="history__list__index">{{ index }}</span>
-    <HistoryOrderList :orders="order.orders" />
+    <HistoryOrderList :orders="orderedProducts" />
     <p class="history__list__order-time">
       at: <span>{{ order.time }}</span>
     </p>
-    <span class="history__list__order-price">{{ order.totalPrice }}</span>
+    <span class="history__list__order-price">{{ price }}</span>
     <span class="history__list__payment">
       <ion-icon name="checkmark-done-outline" />
     </span>
@@ -33,6 +33,27 @@ export default {
     index: {
       type: Number,
       required: true
+    }
+  },
+  computed: {
+    orderedProducts () {
+      const products = {}
+      if (this.order.orders.length) {
+        this.order.orders.forEach(orderedProduct => {
+          if (!products[orderedProduct.id]) {
+            this.$set(products, orderedProduct.id, [])
+          }
+          products[orderedProduct.id].push(orderedProduct)
+        })
+      }
+      return products
+    },
+    price () {
+      let price = 0
+      this.order.orders.forEach(item => {
+        price += item.price
+      })
+      return price
     }
   },
   methods: {

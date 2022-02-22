@@ -21,11 +21,7 @@ export default {
   }),
 
   computed: {
-    ...mapGetters(['getSelectedProducts', 'getSelectedOrdersRuslan']),
-    selectedProducts () {
-      return this.getSelectedProducts
-    },
-
+    ...mapGetters(['getSelectedOrdersRuslan']),
     // Ruslan
     products () {
       const products = {}

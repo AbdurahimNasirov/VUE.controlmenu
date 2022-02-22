@@ -26,13 +26,9 @@ export default {
     OrderList
   },
 
-  // не правильно высчитываешь total price, так не правильно!
+  // не правильно высчитываешь total price, так не правильно! :)..
   computed: {
-    ...mapGetters([
-      'getTotalPrice', 
-      'getSelectedProducts',
-      'getSelectedOrdersRuslan'
-    ]),
+    ...mapGetters(['getSelectedOrdersRuslan']),
 
     totalPrice () {
       let price = 0
@@ -44,15 +40,13 @@ export default {
       return price
     }
   },
-
   methods: {
     ...mapActions(['setOrdersToHistory', 'updatePriceAndOrders']),
 
     orderAddToHistory () {
-      if (this.getTotalPrice) {
+      if (this.getSelectedOrdersRuslan.length) {
         this.setOrdersToHistory({
-          totalPrice: this.getTotalPrice,
-          orders: this.getSelectedProducts,
+          orders: this.getSelectedOrdersRuslan,
           time: new Date().toLocaleTimeString([], { timeStyle: 'short' })
         })
         this.updatePriceAndOrders()

@@ -15,27 +15,27 @@
 </template>
 
 <script>
-import { mapActions, mapMutations } from 'vuex'
+import { mapMutations } from 'vuex'
 export default {
   name: 'ProductItem',
   // eslint-disable-next-line vue/require-prop-types
   props: ['product'],
   methods: {
-    ...mapActions([
-      'addtSelectedOrder', 
-      'deleteProduct', 
-      'plusPriceToTotalPrice'
-    ]),
-    addOrder () {
-      this.addtSelectedOrder(this.product)
-      this.plusPriceToTotalPrice(this.product.price)
-    },
-    deleteProductItem () {
-      this.deleteProduct({
-        name: this.product.name,
-        id: this.product.id
-      })
-    },
+  //   ...mapActions([
+  //     'addtSelectedOrder', 
+  //     'deleteProduct', 
+  //     'plusPriceToTotalPrice'
+  //   ]),
+  //   addOrder () {
+  //     this.addtSelectedOrder(this.product)
+  //     this.plusPriceToTotalPrice(this.product.price)
+  //   },
+  //   deleteProductItem () {
+  //     this.deleteProduct({
+  //       name: this.product.name,
+  //       id: this.product.id
+  //     })
+  //   },
 
     // Ruslan
     ...mapMutations([

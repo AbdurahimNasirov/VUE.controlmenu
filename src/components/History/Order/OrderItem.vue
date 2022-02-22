@@ -19,6 +19,10 @@ export default {
     order: {
       type: Array,
       required: true
+    },
+    index: {
+      type: Number,
+      required: true
     }
   }
 }

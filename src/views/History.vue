@@ -44,7 +44,11 @@ export default {
     ...mapGetters(['getHistoryInfo', 'getName']),
     totalPrice () {
       let totalPrice = 0
-      this.getHistoryInfo.forEach((order) => (totalPrice += order.totalPrice))
+      this.getHistoryInfo.forEach((orders) => {
+        orders.orders.forEach(_order => {
+          totalPrice += _order.price
+        })
+      })
       return totalPrice
     }
   }
