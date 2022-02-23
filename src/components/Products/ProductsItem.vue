@@ -18,8 +18,12 @@
 import { mapMutations } from 'vuex'
 export default {
   name: 'ProductItem',
-  // eslint-disable-next-line vue/require-prop-types
-  props: ['product'],
+  props: {
+    product: {
+      type: Object,
+      required: true
+    }
+  },
   methods: {
     ...mapMutations([
       'addtProductToOrders',

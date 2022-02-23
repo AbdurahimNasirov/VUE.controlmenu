@@ -21,28 +21,33 @@
 <script>
 import { mapMutations } from 'vuex'
 export default {
+
   props: {
     product: {
       type: Array,
       required: true
     },
+
     index: {
       type: Number,
       required: true
     }
   },
+
   data: () => ({
     price: 0
   }),
-  computed: {
 
+  computed: {
     totalPrice () {
       return this.product[0].price * this.product.length
     }
   },
+
   mounted () {
     this.price = this.product[0].price
   },
+  
   methods: {
     ...mapMutations(['deleteProductFromOrdersProduct', 'addtProductToOrders']),
 
