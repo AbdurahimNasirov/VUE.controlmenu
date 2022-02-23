@@ -4,19 +4,18 @@
       class="cardItem"
       @click="linkToProduct" 
     >
-      <!-- это должен быть router-link -->
       <h2 class="btn--global-link">
         {{ category.title }}
       </h2>
     </div>
-    <button class="delete-btn--global" @click="deleteCategoryRuslan">
+    <button class="delete-btn--global" @click="deleteCategory">
       <ion-icon name="trash-outline" />
     </button>
   </div>
 </template>
 
 <script>
-import { mapActions, mapMutations } from 'vuex'
+import { mapMutations } from 'vuex'
 export default {
   name: 'CategoryItem',
   props: {
@@ -26,24 +25,16 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['deleteCategories']),
     linkToProduct () {
       this.$router.push(`/category/${this.category.categoryName}`)
     },
-    deleteCategoryBtn () {
-      this.deleteCategories({
-        categoryName: this.category.categoryName,
-        id: this.category.id
-      })
-    },
 
-    // Ruslan
     ...mapMutations({
-      commitDeleteCategoryRuslan: 'deleteCategoryRuslan'
+      commitDeleteCategory: 'deleteCategory'
     }),
 
-    deleteCategoryRuslan () {
-      this.commitDeleteCategoryRuslan(this.category)
+    deleteCategory () {
+      this.commitDeleteCategory(this.category)
     }
   }
 }

@@ -19,21 +19,18 @@
 import { mapGetters, mapActions } from 'vuex'
 import OrderList from '@/components/OrderBar/OrderList'
 
-// между import и export тоже ставь отступы
 export default {
   name: 'OrderBar',
   components: {
     OrderList
   },
-
-  // не правильно высчитываешь total price, так не правильно! :)..
   computed: {
-    ...mapGetters(['getSelectedOrdersRuslan']),
+    ...mapGetters(['getSelectedOrders']),
 
     totalPrice () {
       let price = 0
-      if (this.getSelectedOrdersRuslan.length) {
-        this.getSelectedOrdersRuslan.forEach(product => {
+      if (this.getSelectedOrders.length) {
+        this.getSelectedOrders.forEach(product => {
           price += product.price
         })
       }
@@ -44,9 +41,9 @@ export default {
     ...mapActions(['setOrdersToHistory', 'updatePriceAndOrders']),
 
     orderAddToHistory () {
-      if (this.getSelectedOrdersRuslan.length) {
+      if (this.getSelectedOrders.length) {
         this.setOrdersToHistory({
-          orders: this.getSelectedOrdersRuslan,
+          orders: this.getSelectedOrders,
           time: new Date().toLocaleTimeString([], { timeStyle: 'short' })
         })
         this.updatePriceAndOrders()
@@ -57,7 +54,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// делай отступы
+
 .order-bar {
   width: 20%;
   background: rgb(243, 154, 36);

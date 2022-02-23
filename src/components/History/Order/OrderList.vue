@@ -55,9 +55,7 @@ export default {
       }
     }
   },
-  mounted () {
-    console.log(this.orders)
-  },
+  
   methods: {
     hide () {
       this.showOrders = false

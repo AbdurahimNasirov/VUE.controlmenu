@@ -10,7 +10,7 @@ export default new Vuex.Store({
     name: '',
     products: infoProducts,
     categories: infoCategories,
-    selectedOrdersRuslan: [],
+    selectedOrders: [],
     historyOrders: []
   },
   mutations: {
@@ -43,14 +43,12 @@ export default new Vuex.Store({
       })
     },
     clearPriceAndOrders (state) {
-      state.selectedOrdersRuslan = []
+      state.selectedOrders = []
     },
     removeHistoryOrder (state, id) {
       state.historyOrders.splice(id, 1)
     },
-
-    // Ruslan ok))
-    deleteCategoryRuslan (state, category) {
+    deleteCategory (state, category) {
       state.products.forEach(product => {
         if (product.category === category.categoryName) {
           deleteProduct(state, product)
@@ -60,16 +58,16 @@ export default new Vuex.Store({
       state.categories = state.categories.filter(_category => _category.id !== category.id)
     },
 
-    deleteProductRuslan (state, product) {
+    deleteProduct (state, product) {
       deleteProduct(state, product)
     },
 
-    addtProductToOrdersRuslan (state, product) {
-      state.selectedOrdersRuslan.push(product)
+    addtProductToOrders (state, product) {
+      state.selectedOrders.push(product)
     },
 
     deleteProductFromOrdersProduct (state, product) {
-      state.selectedOrdersRuslan = state.selectedOrdersRuslan.filter(_product => {
+      state.selectedOrders = state.selectedOrders.filter(_product => {
         return _product.orderProductId !== product.orderProductId
       })
     }
@@ -95,19 +93,17 @@ export default new Vuex.Store({
     }
   },
   getters: {
-    getName: s => s.name,
-    getProducts: s => s.products,
-    getCategories: s => s.categories,
-    getHistoryInfo: s => s.historyOrders,
-
-    // Ruslan
-    getSelectedOrdersRuslan: state => state.selectedOrdersRuslan
+    getName: state => state.name,
+    getProducts: state => state.products,
+    getCategories: state => state.categories,
+    getHistoryInfo: state => state.historyOrders,
+    getSelectedOrders: state => state.selectedOrders
   }
 })
 
 function deleteProduct (state, product) {
   state.products = state.products.filter(_product => _product.id !== product.id)
-  state.selectedOrdersRuslan = state.selectedOrdersRuslan.filter(_product => {
+  state.selectedOrders = state.selectedOrders.filter(_product => {
     return _product.id !== product.id
   })
 }

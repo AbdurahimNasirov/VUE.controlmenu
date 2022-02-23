@@ -21,12 +21,11 @@ export default {
   }),
 
   computed: {
-    ...mapGetters(['getSelectedOrdersRuslan']),
-    // Ruslan
+    ...mapGetters(['getSelectedOrders']),
     products () {
       const products = {}
-      if (this.getSelectedOrdersRuslan.length) {
-        this.getSelectedOrdersRuslan.forEach(orderedProduct => {
+      if (this.getSelectedOrders.length) {
+        this.getSelectedOrders.forEach(orderedProduct => {
           if (!products[orderedProduct.id]) {
             this.$set(products, orderedProduct.id, [])
           }

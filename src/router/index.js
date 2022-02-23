@@ -39,13 +39,4 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
-// router.beforeEach((to, from, next) => {
-//   const currentUser = this.loca
-//   const requireAuth = to.matched.some(record => record.meta.auth)
-//   if (requireAuth && !currentUser) {
-//     next('/login?message=login')
-//   } else {
-//     next()
-//   }
-// })
 export default router

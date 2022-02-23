@@ -2,13 +2,13 @@
   <div class="btn--global">
     <div 
       class="cardItem"
-      @click="addProductRuslan" 
+      @click="addProduct" 
     >
       <h2 class="btn--global-link">
         {{ product.name }}
       </h2>
     </div>
-    <button class="delete-btn--global" @click="deleteProductItemRuslan">
+    <button class="delete-btn--global" @click="deleteProductItem">
       <ion-icon name="trash-outline" />
     </button>
   </div>
@@ -21,34 +21,17 @@ export default {
   // eslint-disable-next-line vue/require-prop-types
   props: ['product'],
   methods: {
-  //   ...mapActions([
-  //     'addtSelectedOrder', 
-  //     'deleteProduct', 
-  //     'plusPriceToTotalPrice'
-  //   ]),
-  //   addOrder () {
-  //     this.addtSelectedOrder(this.product)
-  //     this.plusPriceToTotalPrice(this.product.price)
-  //   },
-  //   deleteProductItem () {
-  //     this.deleteProduct({
-  //       name: this.product.name,
-  //       id: this.product.id
-  //     })
-  //   },
-
-    // Ruslan
     ...mapMutations([
-      'addtProductToOrdersRuslan',
-      'deleteProductRuslan'
+      'addtProductToOrders',
+      'deleteProduct'
     ]),
 
-    addProductRuslan () {
-      this.addtProductToOrdersRuslan({...this.product, orderProductId: new Date().getTime()})
+    addProduct () {
+      this.addtProductToOrders({...this.product, orderProductId: new Date().getTime()})
     },
 
-    deleteProductItemRuslan () {
-      this.deleteProductRuslan(this.product)
+    deleteProductItem () {
+      this.deleteProduct(this.product)
     }
   }
 }

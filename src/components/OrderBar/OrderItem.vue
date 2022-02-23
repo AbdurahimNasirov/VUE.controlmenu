@@ -6,15 +6,15 @@
     </h3>
     <span class="order__price">{{ product[0].price }}</span>
     <span class="order__controller">
-      <span class="order__remove" @click="minusItemRuslan">
+      <span class="order__remove" @click="minusItem">
         <ion-icon name="caret-back-outline" />
       </span>
       <span class="order__amount">{{ product.length }}</span>
-      <span class="order__add" @click="plusItemRuslan">
+      <span class="order__add" @click="plusItem">
         <ion-icon name="caret-forward-outline" />
       </span>
     </span>
-    <span class="order__basic-price">{{ totalPriceRuslan }}</span>
+    <span class="order__basic-price">{{ totalPrice }}</span>
   </li>
 </template>
 
@@ -35,13 +35,8 @@ export default {
     price: 0
   }),
   computed: {
+
     totalPrice () {
-      // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-      this.price = this.product[0].price * this.product.length
-      return this.price
-    },
-    // Ruslan
-    totalPriceRuslan () {
       return this.product[0].price * this.product.length
     }
   },
@@ -49,14 +44,14 @@ export default {
     this.price = this.product[0].price
   },
   methods: {
-    ...mapMutations(['deleteProductFromOrdersProduct', 'addtProductToOrdersRuslan']),
+    ...mapMutations(['deleteProductFromOrdersProduct', 'addtProductToOrders']),
 
-    minusItemRuslan () {
+    minusItem () {
       this.deleteProductFromOrdersProduct(this.product[this.product.length - 1])
     },
 
-    plusItemRuslan () {
-      this.addtProductToOrdersRuslan({...this.product[0], orderProductId: new Date().getTime()})
+    plusItem () {
+      this.addtProductToOrders({...this.product[0], orderProductId: new Date().getTime()})
     }
   }
 }
