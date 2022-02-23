@@ -1,64 +1,65 @@
 <template>
   <li class="order__item">
     <span class="order__index">{{ index }}</span>
-    <h3 class="order__name">{{ product[0].name }}</h3>
-    <span class="order__prize">{{ product[0].price }}</span>
+    <h3 class="order__name">
+      {{ product[0].name }}
+    </h3>
+    <span class="order__price">{{ product[0].price }}</span>
     <span class="order__controller">
       <span class="order__remove" @click="minusItem">
-        <ion-icon name="caret-back-outline"></ion-icon>
+        <ion-icon name="caret-back-outline" />
       </span>
       <span class="order__amount">{{ product.length }}</span>
       <span class="order__add" @click="plusItem">
-        <ion-icon name="caret-forward-outline"></ion-icon>
+        <ion-icon name="caret-forward-outline" />
       </span>
     </span>
-    <span class="order__basic-prize">{{ totalPrice }}</span>
+    <span class="order__basic-price">{{ totalPrice }}</span>
   </li>
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapMutations } from 'vuex'
 export default {
+
   props: {
     product: {
       type: Array,
-      required: true,
+      required: true
     },
+
     index: {
       type: Number,
-      required: true,
-    },
+      required: true
+    }
   },
-  computed: {
-    totalPrice() {
-      this.price = this.product[0].price * this.product.length;
-      return this.price;
-    },
-  },
+
   data: () => ({
-    price: 0,
+    price: 0
   }),
-  mounted() {
-    this.price = this.product[0].price;
+
+  computed: {
+    totalPrice () {
+      return this.product[0].price * this.product.length
+    }
   },
+
+  mounted () {
+    this.price = this.product[0].price
+  },
+  
   methods: {
-    ...mapActions([
-      "addtSelectedOrder",
-      "removeSelectedOrderItem",
-      "plusPriceToTotalPrice",
-      "minusPriceToTotalPrice",
-    ]),
-    plusItem() {
-      this.addtSelectedOrder(this.product[0]);
-      this.plusPriceToTotalPrice(this.product[0].price);
+    ...mapMutations(['deleteProductFromOrdersProduct', 'addtProductToOrders']),
+
+    minusItem () {
+      this.deleteProductFromOrdersProduct(this.product[this.product.length - 1])
     },
-    minusItem() {
-      this.removeSelectedOrderItem(this.product[0]);
-      if (this.product.length)
-        this.minusPriceToTotalPrice(this.product[0].price);
-    },
-  },
-};
+
+    plusItem () {
+      this.addtProductToOrders({...this.product[0], orderProductId: new Date().getTime()})
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

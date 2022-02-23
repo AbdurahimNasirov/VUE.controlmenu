@@ -1,37 +1,43 @@
 <template>
   <div class="btn--global">
-    <div @click="linkToProduct" class="cardItem">
-      <h2 class="btn--global-link">{{ category.title }}</h2>
+    <div 
+      class="cardItem"
+      @click="linkToProduct" 
+    >
+      <h2 class="btn--global-link">
+        {{ category.title }}
+      </h2>
     </div>
-    <button class="delete-btn--global" @click="deleteCategoryBtn">
-      <ion-icon name="trash-outline"></ion-icon>
+    <button class="delete-btn--global" @click="deleteCategory">
+      <ion-icon name="trash-outline" />
     </button>
   </div>
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapMutations } from 'vuex'
 export default {
-  name: "Category",
+  name: 'CategoryItem',
   props: {
     category: {
       type: Object,
-      required: true,
-    },
+      required: true
+    }
   },
   methods: {
-    ...mapActions(["deleteCategories"]),
-    linkToProduct() {
-      this.$router.push(`/category/${this.category.categoryName}`);
+    linkToProduct () {
+      this.$router.push(`/category/${this.category.categoryName}`)
     },
-    deleteCategoryBtn() {
-      this.deleteCategories({
-        categoryName: this.category.categoryName,
-        id: this.category.id,
-      });
-    },
-  },
-};
+
+    ...mapMutations({
+      commitDeleteCategory: 'deleteCategory'
+    }),
+
+    deleteCategory () {
+      this.commitDeleteCategory(this.category)
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

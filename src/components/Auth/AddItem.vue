@@ -2,41 +2,45 @@
   <div v-click-outside="hide">
     <div class="btn--global plus" @click="dialogShowTrigger">
       <h2 class="category-name">
-        <ion-icon name="add-circle-outline"></ion-icon>
+        <ion-icon name="add-circle-outline" />
       </h2>
     </div>
-    <div class="auth-dialog" v-show="dialogShow">
-      <h3 class="title--global">New-Product</h3>
+    <div v-show="dialogShow" class="auth-dialog">
+      <h3 class="title--global">
+        New-Product
+      </h3>
       <form @submit.prevent="addProduct">
         <label for="name-product" class="name--global">Name Product :</label>
         <input
+          v-model="titleItemProduct"
           type="text"
           class="input--global"
-          v-model="titleItemProduct"
           autocomplete="off"
-        />
-        <label for="prize-product" class="name--global">Prize Product :</label>
+        >
+        <label for="price-product" class="name--global">price Product :</label>
         <input
+          v-model="priceItemProduct"
           type="number"
           class="input--global"
-          v-model="priceItemProduct"
           autocomplete="off"
-        />
-        <label for="category-search" class="name--global"
-          >Select Category :</label
         >
+        <label 
+          for="category-search" 
+          class="name--global"
+        >
+          Select Category :
+        </label>
         <div v-click-outside="hideCategory">
           <input
+            id="category-search"
+            v-model="categoryProduct"
             type="text"
             class="input--global"
-            id="category-search"
-            @click="categoriesList = !categoriesList"
-            v-model="categoryProduct"
             autocomplete="off"
-          />
-          <ul class="search-list--global" v-show="categoriesList">
+            @click="categoriesList = !categoriesList"
+          >
+          <ul v-show="categoriesList" class="search-list--global">
             <li
-              class="search-item--global"
               v-for="category in getCategories"
               v-show="
                 category.title
@@ -44,6 +48,7 @@
                   .includes(categoryProduct.toLowerCase())
               "
               :key="category.id"
+              class="search-item--global"
               @click="
                 () => {
                   categoryProduct = category.title;
@@ -55,82 +60,85 @@
             </li>
           </ul>
         </div>
-        <button type="submit" class="submit--global">Create</button>
+        <button type="submit" class="submit--global">
+          Create
+        </button>
       </form>
     </div>
   </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
-import ClickOutside from "vue-click-outside";
+import { mapGetters, mapActions } from 'vuex' 
+import ClickOutside from 'vue-click-outside' 
 export default {
-  computed: {
-    ...mapGetters(["getCategories"]),
+  directives: {
+    ClickOutside
   },
   data: () => ({
     dialogShow: false,
     categoriesList: false,
-    categoryProduct: "",
-    titleItemProduct: "",
-    priceItemProduct: "",
+    categoryProduct: '',
+    titleItemProduct: '',
+    priceItemProduct: ''
   }),
+  computed: {
+    ...mapGetters(['getCategories'])
+  },
+
   watch: {
-    dialogShow(e) {
+    dialogShow (e) {
       if (e) {
-        window.addEventListener("keydown", this.closeByEsc);
+        window.addEventListener('keydown', this.closeByEsc) 
       } else {
-        window.removeEventListener("keydown", this.closeByEsc);
+        window.removeEventListener('keydown', this.closeByEsc) 
       }
-    },
+    }
   },
   methods: {
-    ...mapActions(["addItem"]),
-    hide() {
-      this.dialogShow = false;
+    ...mapActions(['addItem']),
+    hide () {
+      this.dialogShow = false
     },
-    hideCategory() {
-      this.categoriesList = false;
+    hideCategory () {
+      this.categoriesList = false
     },
-    closeByEsc() {
-      if (event.code.toLowerCase() === "escape") {
-        this.hide();
+    closeByEsc () {
+      if (event.code.toLowerCase() === 'escape') {
+        this.hide()
       }
     },
-    dialogShowTrigger() {
-      this.dialogShow = !this.dialogShow;
+    dialogShowTrigger () {
+      this.dialogShow = !this.dialogShow
     },
-    categoryNameFormatter(name) {
-      if (name.includes(" ")) {
-        return name.toLowerCase().split(" ").join("_");
+    categoryNameFormatter (name) {
+      if (name.includes(' ')) {
+        return name.toLowerCase().split(' ').join('_')
       } else {
-        return name.toLowerCase();
+        return name.toLowerCase()
       }
     },
-    addProduct() {
+    addProduct () {
       if (
         this.getCategories.some((category) =>
           category.title === this.categoryProduct
         ) && this.categoryProduct != '' &&
-        this.titleItemProduct != "" &&
+        this.titleItemProduct != '' &&
         this.priceItemProduct
       ) {
         this.addItem({
           name: this.titleItemProduct,
           price: this.priceItemProduct,
-          category: this.categoryNameFormatter(this.categoryProduct),
-        });
+          category: this.categoryNameFormatter(this.categoryProduct)
+        })
         this.dialogShow = false,
         this.titleItemProduct = '',
         this.categoryProduct = '',
         this.priceItemProduct = ''
       }
-    },
-  },
-  directives: {
-    ClickOutside,
-  },
-};
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

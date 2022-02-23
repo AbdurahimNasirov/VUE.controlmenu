@@ -2,9 +2,9 @@
   <div class="cards">
     <ul class="cards-list">
       <li
-        class="cards-item"
         v-for="(categories, idx) in getCategories"
         :key="idx"
+        class="cards-item"
       >
         <CardItem
           :category="categories"
@@ -19,23 +19,20 @@
 
 <script>
 
-import DialogAddColumn from "@/components/Auth/AddColumn.vue";
-import CardItem from "@/components/Categories/CardItem";
-import { mapGetters } from "vuex";
+import DialogAddColumn from '@/components/Auth/AddColumn.vue'
+import CardItem from '@/components/Categories/CardItem'
+import { mapGetters } from 'vuex'
 export default {
-  name: "Categories",
-  computed: {
-    ...mapGetters(["getCategories"]),
-  },
-  data: () => ({
-  }),
+  name: 'CategoriesList',
   components: {
     CardItem,
-    DialogAddColumn,
+    DialogAddColumn
   },
-  methods: {
-  },
-};
+  computed: {
+    ...mapGetters(['getCategories'])
+  }
+
+}
 </script>
 
 <style lang="scss" scoped>

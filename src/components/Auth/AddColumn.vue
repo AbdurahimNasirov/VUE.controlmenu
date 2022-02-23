@@ -2,58 +2,74 @@
   <div v-click-outside="hide">
     <div class="btn--global plus" @click="dialogShowTrigger">
       <h2 class="category-name">
-        <ion-icon name="add-circle-outline"></ion-icon>
+        <ion-icon name="add-circle-outline" />
       </h2>
     </div>
-    <div class="auth-dialog" v-show="dialogShow">
-      <h3 class="title--global">New-Category</h3>
+    <div 
+      v-show="dialogShow" 
+      class="auth-dialog"
+    >
+      <h3 class="title--global">
+        New-Category
+      </h3>
       <form @submit.prevent="newColumn">
         <label for="name-category" class="name--global">Name Category :</label>
-        <input type="text" class="input--global" id="name-category" v-model="nameCategory" autocomplete="off"/>
-        <button type="submit" class="submit--global">Create</button>
+        <input 
+          v-model="nameCategory"
+          type="text" 
+          class="input--global" 
+          autocomplete="off"
+        >
+        <button type="submit" class="submit--global">
+          Create
+        </button>
       </form>
     </div>
   </div>
 </template>
 
 <script>
-import ClickOutside from "vue-click-outside";
+import ClickOutside from 'vue-click-outside'
 import {mapActions} from 'vuex'
 export default {
+  directives: {
+    ClickOutside
+  },
   data: () => ({
     dialogShow: false,
     nameCategory: ''
   }),
   watch: {
-    dialogShow(e) {
+    dialogShow (e) {
       if (e) {
-        window.addEventListener("keydown", this.closeByEsc);
+        window.addEventListener('keydown', this.closeByEsc)
       } else {
-        window.removeEventListener("keydown", this.closeByEsc);
+        window.removeEventListener('keydown', this.closeByEsc)
       }
-    },
+    }
   },
+
   methods: {
-    ...mapActions(["addCategories"]),
-    hide() {
-      this.dialogShow = false;
+    ...mapActions(['addCategories']),
+    hide () {
+      this.dialogShow = false
     },
-    closeByEsc() {  
-      if (event.code.toLowerCase() === "escape") {
-        this.hide();
+    closeByEsc () {  
+      if (event.code.toLowerCase() === 'escape') {
+        this.hide() 
       }
     },
-    dialogShowTrigger() {
-      this.dialogShow = !this.dialogShow;
+    dialogShowTrigger () {
+      this.dialogShow = !this.dialogShow 
     },
-    categoryNameFormatter(name) {
+    categoryNameFormatter (name) {
       if(name.includes(' ')) {
         return name.toLowerCase().split(' ').join('_')
       }else {
         return name.toLowerCase()
       }
     },
-    newColumn() {
+    newColumn () {
       if(this.nameCategory != '') {
         this.addCategories({
           title: this.nameCategory,
@@ -63,11 +79,8 @@ export default {
       this.nameCategory = '',
       this.dialogShow = false
     }
-  },
-  directives: {
-    ClickOutside,
-  },
-};
+  }
+}
 </script>
 
 <style lang="scss" scoped>

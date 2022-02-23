@@ -106,6 +106,6 @@ export default [
         price: 10000,
         category: 'cackes',
         id: 18
-    },
+    }
 
 ]

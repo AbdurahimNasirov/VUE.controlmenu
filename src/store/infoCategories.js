@@ -28,5 +28,5 @@ export default [
         title: 'Cackes',
         categoryName: 'cackes',
         id: 6
-    },
+    }
 ]

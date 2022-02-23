@@ -1,18 +1,20 @@
 <template>
   <div class="nav-bar">
     <span class="nav-bar__dropdownbtn">
-      <ion-icon name="menu"></ion-icon>
+      <ion-icon name="menu" />
     </span>
     <div class="nav-bar__logout">
       <router-link class="nav-bar__logout__logoutbtn" to="/login">
-        <ion-icon name="log-out-outline"></ion-icon>
+        <ion-icon name="log-out-outline" />
       </router-link>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  name: 'NavbarComponent'
+}
 </script>
 
 <style lang="scss" scoped>
