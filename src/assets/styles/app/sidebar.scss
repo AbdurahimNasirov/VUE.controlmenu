@@ -1,0 +1,52 @@
+.side-bar {
+  min-height: 100vh;
+
+  &__fixed {
+    position: fixed;
+    background: $orange-main;
+    border-right: 4px solid $black-main;
+    height: 100%;
+    width: 15%;
+	left: -15%;
+    overflow: hidden;
+	transition: left .3s;
+	&--opened {
+		left: 0;
+	}
+  }
+
+  &-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  &-link {
+    list-style: none;
+    cursor: pointer;
+    a {
+      width: 100%;
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 4px 5px;
+      font-size: 20px;
+      ion-icon {
+        font-size: 22px;
+      }
+      &:hover {
+        background: $black-015;
+      }
+    }
+    &--category {
+      a {
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        padding-left: 20px;
+      }
+    }
+  }
+}

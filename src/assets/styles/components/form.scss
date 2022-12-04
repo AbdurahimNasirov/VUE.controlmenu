@@ -1,0 +1,63 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    background: $green-main;
+    width: 400px;
+    font-size: 24px;
+    padding: 15px;
+    &--category {
+      height: 280px;
+    }
+    &--delete {
+      height: 200px;
+    }
+    &--product {
+      height: 400px;
+    }
+    &__actions {
+      display: flex;
+      align-items: end;
+      justify-content: flex-end;
+      column-gap: 10px;
+      flex: 1 1000 100%;
+    }
+  
+    &-name {
+      display: block;
+      position: relative;
+      padding-left: 12px;
+      margin-bottom: 5px;
+      margin-top: 20px;
+      &::before {
+        content: "*";
+        color: $red;
+        position: absolute;
+        top: -2.5px;
+        left: 0;
+        font-size: 1.1em;
+      }
+    }
+  
+    &-input {
+      border: 1.8px solid $black-main;
+      outline: none;
+      background: none;
+      width: 100%;
+      padding: 5px;
+      border-radius: 6px;
+      &:focus {
+        outline: none;
+        border: 1.8px solid black;
+      }
+    }
+  
+    &-error {
+      color: $red;
+      margin-top: 4px;
+    }
+  
+    &-title {
+      letter-spacing: 0.03em;
+    }
+  }
+  

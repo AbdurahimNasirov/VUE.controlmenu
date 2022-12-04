@@ -1,0 +1,211 @@
+.history {
+  &__fields {
+    margin-top: 40px;
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+    border-bottom: 3px solid $black-04;
+
+    &-item {
+      font-family: $font-roboto;
+      font-size: 24px;
+      color: $black-main;
+      border-right: 3px solid $black-04;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 400;
+      gap: 4px;
+    }
+
+    &-length {
+      width: 45px;
+    }
+
+    &-name {
+      width: 140px;
+    }
+
+    &-time {
+      width: 30%;
+    }
+
+    &-price {
+      width: 25%;
+    }
+
+    &-payed {
+      width: 15%;
+    }
+
+    &-delete {
+      flex: 1 1 auto;
+      border-right: none;
+    }
+  }
+  &__bottom {
+    width: 100%;
+    border-top: 3px solid $black-04;
+
+    &-content {
+      margin-top: 20px;
+      max-width: 650px;
+      width: 100%;
+      height: 100px;
+      background: $black-main;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 15px;
+      color: $white-main;
+    }
+
+    &-name {
+      font-size: 25px;
+      font-weight: 400;
+    }
+
+    &-totalprice {
+      font-weight: 300;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      text-transform: capitalize;
+      span {
+        padding-left: 15px;
+        font-size: 25px;
+        font-weight: 500;
+        color: $blue;
+      }
+    }
+  }
+  &__item {
+    padding: 5px 0;
+    display: flex;
+    align-items: center;
+    position: relative;
+    &:hover {
+      background: rgba(0, 0, 0, 0.08);
+    }
+
+    &-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      color: $black-main;
+      border-right: 3px solid transparent;
+    }
+
+    &-length {
+      width: 45px;
+      &::after {
+        content: ".";
+      }
+    }
+
+    &-name {
+      width: 140px;
+      outline: none;
+      border: none;
+      background: none;
+      border-radius: 5px;
+      cursor: pointer;
+      &:hover {
+        background: $orange-main;
+      }
+    }
+
+    &-time {
+      width: 30%;
+      font-size: 20px;
+    }
+
+    &-price {
+      width: 25%;
+      font-weight: 600;
+    }
+
+    &-payed {
+      width: 15%;
+    }
+
+    &-delete {
+      background: none;
+      border: none;
+      cursor: pointer;
+      flex: 1 1 auto;
+      border-right: none;
+      ion-icon {
+        &:hover {
+          color: red;
+        }
+      }
+    }
+  }
+  &__orders {
+    width: 400px;
+    height: 200px;
+    overflow: auto;
+    background: $orange-main;
+    padding: 10px;
+    position: relative;
+    color: $black-main;
+    h3 {
+      font-size: 22px;
+      font-weight: 400;
+    }
+    &-list {
+      margin-top: 20px;
+    }
+    &-item {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      background: $white-main;
+      border-radius: 5px;
+      padding: 0 5px;
+      margin-bottom: 5px;
+    }
+    &-length {
+      width: 22px;
+      &::after {
+        content: ".";
+      }
+    }
+    &-name {
+      padding: 0 5px;
+      flex: 1 1 auto;
+    }
+
+    &-price {
+      width: 55px;
+      margin-right: 10px;
+    }
+
+    &-amount {
+      width: 30px;
+      border: 2px solid $black-main;
+      padding: 0 2px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-right: 5px;
+    }
+
+    &-totalprice {
+      width: 62px;
+    }
+
+    &-close {
+      border: none;
+      background: none;
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      cursor: pointer;
+      font-size: 25px;
+    }
+  }
+}

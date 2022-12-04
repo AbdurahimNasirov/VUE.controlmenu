@@ -1,0 +1,38 @@
+.heading {
+    font-size: 44px;
+    font-weight: 700;
+    color: $black-main;
+    &-2 {
+        font-size: 32px;
+    }
+    &-3 {
+        font-size: 26px;
+        font-weight: 400;
+    }
+    &-3 {
+        font-size: 22px;
+        font-weight: 400;
+    }
+    &-4 {
+        font-size: 18px;
+        font-weight: 400;
+    }
+    &-5 {
+        font-size: 16px;
+        font-weight: 400;
+    }
+    &-6 {
+        font-size: 14px;
+        font-weight: 500;
+    }
+    &-7 {
+        font-size: 12px;
+        font-weight: 500;
+    }
+    &--white {
+        color: $white-main;
+    }
+    &--center {
+        text-align: center;
+    }
+}

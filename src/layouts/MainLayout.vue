@@ -1,42 +1,23 @@
 <template>
-  <main>
+  <div class="wrapper">
     <NavBar />
-    <div class="main--content">
+    <main>
       <SideBar />
-      <div class="basic-page">
-        <Title />
-        <router-view />
-      </div>
-    </div>
-  </main>
+      <router-view />
+    </main>
+  </div>
 </template>
 
 <script>
-import Title from '@/components/App/Title'
-import SideBar from '@/components/App/SideBar'
-import NavBar from '@/components/App/Navbar'
+import SideBar from '@/components/app/side-bar.vue'
+import NavBar from '@/components/app/nav-bar.vue'
 export default {
   components: {
     NavBar,
-    SideBar,
-    Title
+    SideBar
   }
 }
 </script>
 
 <style lang="scss" scoped>
-main {
-  min-height: 100vh;
-  background: rgb(243, 154, 36);
-  display: flex;
-  flex-direction: column;
-}
-.main--content {
-  margin-top: 50px;
-  display: flex;
-  background: rgb(133, 212, 58);
-}
-.basic-page {
-  width: 100%;
-}
 </style>

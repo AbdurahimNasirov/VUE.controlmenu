@@ -1,5 +1,5 @@
 # vue-controlmenu
-
+This project like (CRM), helps to you shopping 
 ## Project setup
 ```
 npm install

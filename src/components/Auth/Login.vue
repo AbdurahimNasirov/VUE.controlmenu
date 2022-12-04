@@ -3,9 +3,20 @@
     <h3 class="title--global">
       Registration
     </h3>
-    <label for="name-user" class="name--global">Name user:</label>
-    <input v-model="name" type="text" class="input--global">
-    <button type="btn" class="submit--global" @click="signIn">
+    <label
+      for="name-user"
+      class="name--global"
+    >Name user:</label>
+    <input
+      v-model="name"
+      type="text"
+      class="input--global"
+    >
+    <button
+      type="btn"
+      class="submit--global"
+      @click="signIn"
+    >
       Sign in
     </button>
   </div>
