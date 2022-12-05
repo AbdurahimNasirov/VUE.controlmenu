@@ -4,7 +4,7 @@
     @submit.prevent="login"
   >
     <h3 class="form-title heading heading-3">
-      Login to your account
+      Create account
     </h3>
     <div class="auth-form__field form__block">
       <label
