@@ -1,15 +1,19 @@
 <template>
   <aside class="side-bar">
-    <div :class="show ? 'side-bar__fixed--opened side-bar__fixed' : 'side-bar__fixed'">
+    <div
+      :class="
+        show ? 'side-bar__fixed--opened side-bar__fixed' : 'side-bar__fixed'
+      "
+    >
       <h1 class="heading">
         LOGO
       </h1>
       <ul class="side-bar-list">
         <li class="side-bar-link">
-          <a style="cursor: not-allowed">
+          <router-link :to="{ name: 'Profile' }">
             <ion-icon name="person-circle-outline" />
             Profile
-          </a>
+          </router-link>
         </li>
         <li class="side-bar-link">
           <router-link
@@ -42,16 +46,16 @@
               }"
               @click.native="addEventBusListener"
             >
-              <span> {{ ++i }}. </span>
+              <p> {{ ++i }}. </p>
               {{ item.title }}
             </router-link>
           </li>
         </ul>
         <li class="side-bar-link">
-          <a style="cursor: not-allowed">
+          <span @click="signOut">
             <ion-icon name="log-out-outline" />
             Logout
-          </a>
+          </span>
         </li>
       </ul>
     </div>
@@ -80,9 +84,21 @@ export default {
   },
 
   methods: {
+    // Sign Out
+    async signOut() {
+      this.$api.auth.signOut();
+      this.$router.push("/login");
+      this.$toast.open({
+        message: `You are logged out !`,
+        position: "top",
+      });
+    },
+
     // Get Category List
     async getItems() {
-      const data = await this.$api.categories.getCategoriesList();
+      const data = await this.$api.categories.getCategoriesList(
+        this.$api.auth.getUid()
+      );
       this.items = await data;
     },
 
@@ -93,9 +109,9 @@ export default {
 
     //Listener Event Bus
     listenEventBus() {
-      eventBus.$on('sidebarTrigger', () => {
-        this.show = !this.show
-      })
+      eventBus.$on("sidebarTrigger", () => {
+        this.show = !this.show;
+      });
 
       eventBus.$on("deleteCategory", async () => {
         await this.getItems();

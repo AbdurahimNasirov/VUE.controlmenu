@@ -37,7 +37,7 @@
       </p>
       <MenuModal
         ref="productModal"
-        :height="450"
+        :height="400"
         :name-modal="'modal-product'"
       >
         <template #modalContent>
@@ -84,6 +84,12 @@ import { mapActions } from "vuex";
 export default {
   name: "ProductsPage",
 
+  metaInfo () {
+    return {
+      title: `Category ${this.pageName} | ${process.env.VUE_APP_TITLE}`
+    }
+  },
+
   components: {
     MenuLayout,
     MenuItem,
@@ -125,19 +131,19 @@ export default {
         const requestData = {
           category: this.$route.params.category_name,
         };
-        return await this.$api.products.getProductsList(requestData);
+        return await this.$api.products.getProductsList(requestData, this.$api.auth.getUid());
       } catch (error) {
-        console.log(error);
+        return error
       }
     },
 
     // Create Product
     async createProduct(requestData) {
       try {
-        await this.$api.products.createProduct(requestData);
+        await this.$api.products.createProduct(requestData, this.$api.auth.getUid());
         await this.$refs.menuLayout.fetchItems();
       } catch (error) {
-        console.log(error);
+        return error
       } finally {
         this.closeModalFormProduct();
       }
@@ -146,11 +152,11 @@ export default {
     // Delete Product
     async deleteProduct() {
       try {
-        await this.$api.products.deleteProduct(this.item);
+        await this.$api.products.deleteProduct(this.item, this.$api.auth.getUid());
         this.deleteProductFromOrdersListByTitle(this.item)
         await this.$refs.menuLayout.fetchItems();
       } catch (error) {
-        console.log(error);
+        return error
       } finally {
         this.$refs.deleteModal.closeModal();
       }
@@ -158,7 +164,7 @@ export default {
 
     // Get Category List
     async getCategoriesList() {
-      const categoriesList = await this.$api.categories.getCategoriesList();
+      const categoriesList = await this.$api.categories.getCategoriesList(this.$api.auth.getUid());
       this.categoriesList = await categoriesList;
     },
 

@@ -9,14 +9,14 @@ export default () => ({
    * @param {Number} requestData.price
    * @param {String} requestData.category
    */
-  async getProductsList(requestData) {
+  async getProductsList(requestData, userUid) {
     try {
       const data = await get(
-        ref(getDatabase(), `/products/${requestData.category}`)
+        ref(getDatabase(), `users/${userUid}/products/${requestData.category}`)
       );
       return (await data.exists()) ? JSON.parse(data.val()) : [];
     } catch (error) {
-      console.log(error);
+      return error
     }
   },
 
@@ -28,16 +28,16 @@ export default () => ({
    * @param {Number} requestData.price
    * @param {String} requestData.category
    */
-  async createProduct(requestData = {}) {
+  async createProduct(requestData = {}, userUid) {
     try {
-      const data = await this.getProductsList(requestData);
+      const data = await this.getProductsList(requestData, userUid);
       data.push(requestData);
       await set(
-        ref(getDatabase(), `/products/${requestData.category}`),
+        ref(getDatabase(), `users/${userUid}/products/${requestData.category}`),
         JSON.stringify(data)
       );
     } catch (error) {
-      console.log(error);
+      return error
     }
   },
 
@@ -49,16 +49,16 @@ export default () => ({
    * @param {Number} requestData.price
    * @param {String} requestData.category
    */
-  async deleteProduct(requestData = {}) {
+  async deleteProduct(requestData = {}, userUid) {
     try {
-      let data = await this.getProductsList(requestData);
+      let data = await this.getProductsList(requestData, userUid);
       data = await data.filter((item) => item.title !== requestData.title);
       await set(
-        ref(getDatabase(), `/products/${requestData.category}`),
+        ref(getDatabase(), `users/${userUid}/products/${requestData.category}`),
         JSON.stringify(data)
       );
     } catch (error) {
-      console.log(error);
+      return error
     }
   },
 });

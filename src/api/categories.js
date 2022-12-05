@@ -4,12 +4,12 @@ export default () => ({
   /**
    * Get Categories List
    */
-  async getCategoriesList() {
+  async getCategoriesList(userUid) {
     try {
-      const data = await get(ref(getDatabase(), "/categories"));
+      const data = await get(ref(getDatabase(), `users/${userUid}/categories`));
       return (await data.exists()) ? JSON.parse(data.val()) : [];
     } catch (error) {
-      console.log(error);
+      return error
     }
   },
 
@@ -20,13 +20,13 @@ export default () => ({
    * @param {String} requestData.title 
    * @param {String} requestData.category_name 
    */
-  async createCategory(requestData = {}) {
+  async createCategory(requestData = {}, userUid) {
     try {
       const data = await this.getCategoriesList();
       data.push(requestData);
-      await set(ref(getDatabase(), "/categories/"), JSON.stringify(data));
+      await set(ref(getDatabase(), `users/${userUid}/categories/`), JSON.stringify(data));
     } catch (error) {
-      console.log(error);
+      return error
     }
   },
 
@@ -37,18 +37,18 @@ export default () => ({
    * @param {String} requestData.title 
    * @param {String} requestData.category_name
    */
-  async deleteCategory(requestData = {}) {
+  async deleteCategory(requestData = {}, userUid) {
     try {
-      let data = await this.getCategoriesList();
+      let data = await this.getCategoriesList(userUid);
       data = await data.filter(
         (item) => item.category_name !== requestData.category_name
       );
-      await set(ref(getDatabase(), "/categories/"), JSON.stringify(data));
+      await set(ref(getDatabase(), `users/${userUid}/categories/`), JSON.stringify(data));
       await remove(
-        ref(getDatabase(), `/products/${requestData.category_name}`)
+        ref(getDatabase(), `users/${userUid}/products/${requestData.category_name}`)
       );
     } catch (error) {
-      console.log(error);
+      return error
     }
   },
 });

@@ -4,12 +4,12 @@ export default () => ({
   /**
    * Get History orders list
    */
-  async getHistoryOrdersList() {
+  async getHistoryOrdersList(userUid) {
     try {
-      const data = await get(ref(getDatabase(), `/history/`));
+      const data = await get(ref(getDatabase(), `users/${userUid}/history/`));
       return (await data.exists()) ? JSON.parse(data.val()) : [];
     } catch (error) {
-      console.log(error);
+      return error
     }
   },
 
@@ -21,14 +21,14 @@ export default () => ({
    * @param {Number} requestData.totalPrice
    * @param {Array} requestData.ordersList
    */
-  async createHistoryOrder(requestData = {}) {
+  async createHistoryOrder(requestData = {}, userUid) {
     try {
       console.log(requestData);
       const data = await this.getHistoryOrdersList();
       data.push(requestData);
-      await set(ref(getDatabase(), `/history/`), JSON.stringify(data));
+      await set(ref(getDatabase(), `users/${userUid}/history/`), JSON.stringify(data));
     } catch (error) {
-      console.log(error);
+      return error
     }
   },
 
@@ -40,16 +40,16 @@ export default () => ({
    * @param {Number} requestData.totalPrice
    * @param {Array} requestData.ordersList
    */
-  async deleteHistoryOrder(requestData = {}) {
+  async deleteHistoryOrder(requestData = {}, userUid) {
     try {
-      let data = await this.getHistoryOrdersList(requestData);
+      let data = await this.getHistoryOrdersList(requestData, userUid);
       data = await data.filter((item) => item.time !== requestData.time);
       await set(
-        ref(getDatabase(), `/history/${data}`),
+        ref(getDatabase(), `users/${userUid}/history/${data}`),
         JSON.stringify(data)
       );
     } catch (error) {
-      console.log(error);
+      return error
     }
   },
 });

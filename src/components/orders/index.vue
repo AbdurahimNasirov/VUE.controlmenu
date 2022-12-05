@@ -97,10 +97,10 @@ export default {
             totalPrice: this.getTotalPrice,
             ordersList: this.ordersList,
           };
-          await this.$api.history.createHistoryOrder(requestData);
+          await this.$api.history.createHistoryOrder(requestData, this.$api.auth.getUid());
           this.resetOrdersList();
         } catch (error) {
-          console.log(error);
+          return error
         }
       }
     },

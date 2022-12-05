@@ -23,13 +23,24 @@ export default {
 </script>
 
 <style lang="scss">
+@keyframes loading {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
 
-
-.auth {
-  width: 100%;
-  min-height: 100vh;
-  padding-top: 20px;
-  display: flex;
-  justify-content: center;
+.loading {
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%, -50%);
+  animation: loading 1s ease-in-out infinite;
+  font-size: 30px;
 }
 </style>

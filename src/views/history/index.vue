@@ -112,6 +112,10 @@ import eventBus from '@/bus/eventBus'
 export default {
   name: "HistoryPage",
 
+  metaInfo: {
+    title: `History | ${process.env.VUE_APP_TITLE}`
+  },
+
   components: {
     MenuLayout,
     MenuModal,
@@ -144,7 +148,7 @@ export default {
 
     // Get History Orders List
     async getHistoryOrdersList() {
-      return await this.$api.history.getHistoryOrdersList();
+      return await this.$api.history.getHistoryOrdersList(this.$api.auth.getUid());
     },
 
     // Get History Orders Total price
@@ -153,18 +157,18 @@ export default {
         const data = await this.getHistoryOrdersList();
         return data.reduce((itemPrev, itemNext) => itemPrev + itemNext.totalPrice, 0);
       } catch (error) {
-        console.log(error);
+        return error
       }
     },
 
     // Delete History order
     async deleteHistoryOrder() {
       try {
-        await this.$api.history.deleteHistoryOrder(this.item);
+        await this.$api.history.deleteHistoryOrder(this.item, this.$api.auth.getUid());
         this.$refs.menuLayout.fetchItems();
         this.totalPrice = 0
       } catch (error) {
-        console.log(error);
+        return error
       } finally {
         this.$refs.deleteModal.closeModal();
       }

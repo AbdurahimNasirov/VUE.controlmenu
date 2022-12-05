@@ -7,26 +7,36 @@
       <ion-icon name="menu" />
     </span>
     <div class="header__logout">
-      <router-link
+      <span
         class="header__logout-link"
-        to="/login"
+        @click="signOut"
       >
         <ion-icon name="log-out-outline" />
-      </router-link>
+      </span>
     </div>
   </header>
 </template>
 
 <script>
-import eventBus from '@/bus/eventBus'
+import eventBus from "@/bus/eventBus";
 export default {
-  name: 'NavbarComponent',
+  name: "NavbarComponent",
 
   methods: {
+    // Sign Out
+    async signOut() {
+      this.$api.auth.signOut();
+      this.$router.push('/login')
+      this.$toast.open({
+        message: `You are logged out !`,
+        position: "top",
+      });
+    },
+
     // Add Event bus Listener
     sidebarTrigger() {
-      eventBus.$emit('sidebarTrigger')
-    }
-  }
-}
+      eventBus.$emit("sidebarTrigger");
+    },
+  },
+};
 </script>

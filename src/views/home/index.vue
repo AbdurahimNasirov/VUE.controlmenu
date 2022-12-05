@@ -12,6 +12,10 @@ import eventBus from '@/bus/eventBus'
 export default {
   name: 'HomePage',
 
+  metaInfo: {
+    title: `Home | ${process.env.VUE_APP_TITLE}`
+  },
+
   components: {
     OrderBar
   },

@@ -33,7 +33,7 @@
         </li>
       </ul>
       <p v-else>
-        No data to display
+        You don't have any categories
       </p>
       <MenuModal
         ref="categoryModal"
@@ -83,6 +83,10 @@ import { mapGetters, mapMutations, mapActions } from "vuex";
 export default {
   name: "CategoriesList",
 
+  metaInfo: {
+    title: `Categories | ${process.env.VUE_APP_TITLE}`
+  },
+
   components: {
     MenuLayout,
     MenuItem,
@@ -107,19 +111,19 @@ export default {
     // Get Category List
     async getItems() {
       try {
-        return await this.$api.categories.getCategoriesList();
+        return await this.$api.categories.getCategoriesList(this.$api.auth.getUid());
       } catch (error) {
-        console.log(error);
+        return error
       }
     },
 
     // Delete category
     async deleteCategory() {
       try {
-        await this.$api.categories.deleteCategory(this.item);
+        await this.$api.categories.deleteCategory(this.item, this.$api.auth.getUid());
         await this.$refs.menuLayout.fetchItems();
       } catch (error) {
-        console.log(error);
+        return error
       } finally {
         this.addEventBusListener();
         this.$refs.deleteModal.closeModal();
@@ -129,10 +133,10 @@ export default {
     // Create category
     async createCategory(requestData) {
       try {
-        await this.$api.categories.createCategory(requestData);
+        await this.$api.categories.createCategory(requestData, this.$api.auth.getUid());
         await this.$refs.menuLayout.fetchItems();
       } catch (error) {
-        console.log(error);
+        return error
       } finally {
         this.addEventBusListener();
         this.closeModalFormCategory();
